@@ -1,0 +1,10 @@
+<!--Embed the header.html template here-->
+{{template "header.html" .}}
+
+<div>
+    <strong>The article was successfully submitted!</strong>
+    <a href="/article/view/{{.payload.ID}}">{{.payload.Title}}</a>
+</div>
+
+<!--display the footer-->
+{{template "footer.html" .}}
