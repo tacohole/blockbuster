@@ -1,5 +1,5 @@
-module example.com/gin_test
+module github.com/tacohole/blockbuster
 
 go 1.16
 
-require github.com/gin-gonic/gin v1.7.3 // indirect
+require github.com/gin-gonic/gin v1.7.3
