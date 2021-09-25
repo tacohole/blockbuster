@@ -17,6 +17,7 @@ func main() {
 	initializeRoutes()
 
 	router.Run()
+
 }
 
 //render HTML, JSON, or XML based on the Accept header of the request

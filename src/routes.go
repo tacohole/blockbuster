@@ -1,5 +1,11 @@
 package main
 
+import (
+	"database/sql"
+	"log"
+	"os"
+)
+
 func initializeRoutes() {
 	router.Use(setUserStatus())
 
@@ -21,4 +27,10 @@ func initializeRoutes() {
 		articleRoutes.POST("/create", ensureLoggedIn(), createArticle)
 	}
 
+	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
+	if err != nil {
+		log.Fatalf("Error loading databases", err)
+	}
+
+	router.GET("/db", dbFunc(db))
 }
