@@ -23,7 +23,7 @@ func getArticleById(id int) (*article, error) {
 			return &a, nil
 		}
 	}
-	return nil, errors.New("Article not found")
+	return nil, errors.New("article not found")
 }
 
 func createNewArticle(title, content string) (*article, error) {

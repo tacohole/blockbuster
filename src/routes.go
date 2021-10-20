@@ -29,7 +29,7 @@ func initializeRoutes() {
 
 	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
 	if err != nil {
-		log.Fatalf("Error loading databases", err)
+		log.Fatalf("Error loading databases %s", err)
 	}
 
 	router.GET("/db", dbFunc(db))

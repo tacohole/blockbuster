@@ -90,7 +90,7 @@ func TestLoginUnauthenticated(t *testing.T) {
 	}
 
 	p, err := ioutil.ReadAll(w.Body)
-	if err != nil || strings.Index(string(p), "<title>Successful Login</title>") < 0 {
+	if err != nil || !strings.Contains(string(p), "<title>Successful Login</title>") {
 		t.Fail()
 	}
 
@@ -197,7 +197,7 @@ func TestRegisterUnauthenticated(t *testing.T) {
 	}
 
 	p, err := ioutil.ReadAll(w.Body)
-	if err != nil || strings.Index(string(p), "<title>Successful Registration &amp; Login</title>") < 0 {
+	if err != nil || !strings.Contains(string(p), "<title>Successful Registration &amp; Login</title>") {
 		t.Fail()
 	}
 
