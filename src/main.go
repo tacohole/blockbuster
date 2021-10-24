@@ -14,6 +14,8 @@ func main() {
 
 	router.LoadHTMLGlob("templates/*")
 
+	router.Static("/static", "./static")
+
 	initializeRoutes()
 
 	router.Run()
