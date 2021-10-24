@@ -11,9 +11,9 @@ type user struct {
 }
 
 var userList = []user{
-	{Username: "user1", Password: "pass1"},
-	{Username: "user2", Password: "pass2"},
-	{Username: "user3", Password: "pass3"},
+	user{Username: "user1", Password: "pass1"},
+	user{Username: "user2", Password: "pass2"},
+	user{Username: "user3", Password: "pass3"},
 }
 
 func isUserValid(username, password string) bool {

@@ -54,10 +54,11 @@ func TestSetUserStatusAuthenticated(t *testing.T) {
 	})
 
 	w := httptest.NewRecorder()
+	h := w.Header()
 
 	http.SetCookie(w, &http.Cookie{Name: "token", Value: "123"})
 	req, _ := http.NewRequest("GET", "/", nil)
-	req.Header = http.Header{"Cookie": w.HeaderMap["Set-Cookie"]}
+	req.Header = http.Header{"Cookie": h["Set-Cookie"]}
 
 	r.ServeHTTP(w, req)
 }

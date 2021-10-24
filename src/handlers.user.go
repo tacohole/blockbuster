@@ -11,8 +11,7 @@ import (
 func showLoginPage(c *gin.Context) {
 	render(c, gin.H{
 		"title": "Login",
-	},
-		"login.html")
+	}, "login.html")
 }
 
 func performLogin(c *gin.Context) {
@@ -25,13 +24,11 @@ func performLogin(c *gin.Context) {
 		c.Set("is_logged_in", true)
 
 		render(c, gin.H{
-			"title": "Successful Login",
-		}, "login-successful.html")
+			"title": "Successful Login"}, "login-successful.html")
 	} else {
 		c.HTML(http.StatusBadRequest, "login.html", gin.H{
 			"ErrorTitle":    "Login Failed",
-			"Error Message": "Invalid Credentials Provided",
-		})
+			"Error Message": "Invalid Credentials Provided"})
 	}
 
 }
@@ -49,8 +46,7 @@ func logout(c *gin.Context) {
 
 func showRegistrationPage(c *gin.Context) {
 	render(c, gin.H{
-		"title": "Register",
-	},
+		"title": "Register"},
 		"register.html")
 
 }
@@ -65,14 +61,13 @@ func register(c *gin.Context) {
 		c.Set("is_logged_in", true)
 
 		render(c, gin.H{
-			"title": "Successful Registration & Login",
-		}, "login-successful.html")
+			"title": "Successful Registration & Login"},
+			"login-successful.html")
 
 	} else {
 		c.HTML(http.StatusBadRequest, "register.html", gin.H{
 			"ErrorTitle":   "Registration Failed",
-			"ErrorMessage": err.Error(),
-		})
+			"ErrorMessage": err.Error()})
 	}
 
 }

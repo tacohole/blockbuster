@@ -12,6 +12,7 @@ import (
 
 func TestShowLoginPageAuthenticated(t *testing.T) {
 	w := httptest.NewRecorder()
+	h := w.Header()
 
 	r := getRouter(true)
 
@@ -20,7 +21,7 @@ func TestShowLoginPageAuthenticated(t *testing.T) {
 	r.GET("/u/login", ensureNotLoggedIn(), showLoginPage)
 
 	req, _ := http.NewRequest("GET", "/u/login", nil)
-	req.Header = http.Header{"Cookie": w.HeaderMap["Set-Cookie"]}
+	req.Header = http.Header{"Cookie": h["Set-Cookie"]}
 
 	r.ServeHTTP(w, req)
 
@@ -50,6 +51,7 @@ func TestShowLoginPageUnauthenticated(t *testing.T) {
 
 func TestLoginAuthenticated(t *testing.T) {
 	w := httptest.NewRecorder()
+	h := w.Header()
 
 	r := getRouter(true)
 
@@ -59,7 +61,7 @@ func TestLoginAuthenticated(t *testing.T) {
 
 	loginPayload := getLoginPOSTPayload()
 	req, _ := http.NewRequest("POST", "/u/login", strings.NewReader(loginPayload))
-	req.Header = http.Header{"Cookie": w.HeaderMap["Set-Cookie"]}
+	req.Header = http.Header{"Cookie": h["Set-Cookie"]}
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Add("Content-Length", strconv.Itoa(len(loginPayload)))
 
@@ -76,7 +78,7 @@ func TestLoginUnauthenticated(t *testing.T) {
 
 	r := getRouter(true)
 
-	r.POST("/u/login", ensureLoggedIn(), performLogin)
+	r.POST("/u/login", ensureNotLoggedIn(), performLogin)
 
 	loginPayload := getLoginPOSTPayload()
 	req, _ := http.NewRequest("POST", "/u/login", strings.NewReader(loginPayload))
@@ -103,7 +105,7 @@ func TestLoginUnauthenticatedIncorrectCredentials(t *testing.T) {
 
 	r.POST("/u/login", ensureNotLoggedIn(), performLogin)
 
-	loginPayload := getLoginPOSTPayload()
+	loginPayload := getRegistrationPOSTPayload()
 	req, _ := http.NewRequest("POST", "/u/login", strings.NewReader(loginPayload))
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Add("Content-Length", strconv.Itoa(len(loginPayload)))
@@ -118,6 +120,7 @@ func TestLoginUnauthenticatedIncorrectCredentials(t *testing.T) {
 
 func TestShowRegisrationPageAuthenticated(t *testing.T) {
 	w := httptest.NewRecorder()
+	h := w.Header()
 
 	r := getRouter(true)
 
@@ -126,7 +129,7 @@ func TestShowRegisrationPageAuthenticated(t *testing.T) {
 	r.GET("/u/register", ensureNotLoggedIn(), showRegistrationPage)
 
 	req, _ := http.NewRequest("GET", "/u/register", nil)
-	req.Header = http.Header{"Cookie": w.HeaderMap["Set-Cookie"]}
+	req.Header = http.Header{"Cookie": h["Set-Cookie"]}
 
 	r.ServeHTTP(w, req)
 
@@ -158,6 +161,7 @@ func TestShowRegistrationPageUnauthenticated(t *testing.T) {
 
 func TestRegisterAuthenticated(t *testing.T) {
 	w := httptest.NewRecorder()
+	h := w.Header()
 
 	r := getRouter(true)
 
@@ -166,14 +170,14 @@ func TestRegisterAuthenticated(t *testing.T) {
 	r.POST("/u/register", ensureNotLoggedIn(), register)
 
 	registrationPayload := getRegistrationPOSTPayload()
-	req, _ := http.NewRequest("POST", "/u/login", strings.NewReader(registrationPayload))
-	req.Header = http.Header{"Cookie": w.HeaderMap["Set-Cookie"]}
+	req, _ := http.NewRequest("POST", "/u/register", strings.NewReader(registrationPayload))
+	req.Header = http.Header{"Cookie": h["Set-Cookie"]}
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Add("Content-Length", strconv.Itoa(len(registrationPayload)))
 
 	r.ServeHTTP(w, req)
 
-	if w.Code != http.StatusBadRequest {
+	if w.Code != http.StatusUnauthorized {
 		t.Fail()
 	}
 }
@@ -186,7 +190,7 @@ func TestRegisterUnauthenticated(t *testing.T) {
 	r.POST("/u/register", ensureNotLoggedIn(), register)
 
 	registrationPayload := getRegistrationPOSTPayload()
-	req, _ := http.NewRequest("POST", "/u/login", strings.NewReader(registrationPayload))
+	req, _ := http.NewRequest("POST", "/u/register", strings.NewReader(registrationPayload))
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Add("Content-Length", strconv.Itoa(len(registrationPayload)))
 
@@ -211,8 +215,8 @@ func TestRegisterUnauthenticatedUnavailableUsername(t *testing.T) {
 
 	r.POST("/u/register", ensureNotLoggedIn(), register)
 
-	registrationPayload := getRegistrationPOSTPayload()
-	req, _ := http.NewRequest("POST", "/u/login", strings.NewReader(registrationPayload))
+	registrationPayload := getLoginPOSTPayload()
+	req, _ := http.NewRequest("POST", "/u/register", strings.NewReader(registrationPayload))
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Add("Content-Length", strconv.Itoa(len(registrationPayload)))
 
