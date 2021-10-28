@@ -1,1 +1,1 @@
-web: mockbuster-video
+web: go build -o app
