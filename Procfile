@@ -1,1 +1,1 @@
-web: mockbuster-video
+web: bin/mockbuster-video
