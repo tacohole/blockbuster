@@ -1,1 +1,1 @@
-web: blockbuster
+web: mockbuster-video
