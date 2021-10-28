@@ -1,4 +1,4 @@
-module github.com/tacohole/blockbuster
+module github.com/tacohole/mockbuster-video
 
 // +heroku goVersion go1.17
 
