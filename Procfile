@@ -1,1 +1,1 @@
-web: src/mockbuster-video
+web: src
