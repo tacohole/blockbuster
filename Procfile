@@ -1,1 +1,1 @@
-web: go build -o app
+web: blockbuster
