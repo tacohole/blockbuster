@@ -12,7 +12,7 @@ func main() {
 	gin.SetMode(gin.ReleaseMode)
 	router = gin.Default()
 
-	router.LoadHTMLGlob("templates/*")
+	router.LoadHTMLGlob("./templates/*")
 
 	router.Static("/static", "./static")
 
