@@ -14,7 +14,7 @@ func main() {
 
 	router.LoadHTMLGlob("src/templates/*")
 
-	router.Static("/static", "./static")
+	router.Static("src/static", "./static")
 
 	initializeRoutes()
 
