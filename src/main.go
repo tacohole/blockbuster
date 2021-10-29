@@ -14,7 +14,7 @@ func main() {
 
 	router.LoadHTMLGlob("src/templates/*")
 
-	router.StaticFile("bb_logo.png", "src/static/bb_logo.png")
+	router.StaticFile("src/static/bb_logo.png", "src/static/bb_logo.png")
 
 	initializeRoutes()
 
